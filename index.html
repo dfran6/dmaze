@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Vite App</title>
+</head>
+<body>
+
+<canvas class="webgl"></canvas>
+<nav>
+    <a href="/">D-maze</a>
+    <ul>
+        <li>Explore</li>
+        <li id="time"><b>2:00</b></li>
+    </ul>
+</nav>
+<h3 class="title">find the exit</h3>
+<p class="title1">+</p>
+
+
+<div class="infoBox">
+    <h2>Your Mission</h2>
+    <br>
+    <ul>
+        <li>Get to the end of the D-maze.</li>
+        <br>
+        <br>
+        <p><b>Tips:</b></p><br>
+        <li>Explore my maze and find the exit.</li><br>
+        <li>Avoid touching the walls.</li><br>
+        <li>Tic-tok you have 2 mins to complete them D-maze.</li>
+    </ul>
+    
+</div>
+
+<!-- Directional buttons -->
+<div id="controls">
+    <button id="forward">↑</button>
+    <div>
+        <button id="left">←</button>
+        <button id="right">→</button>
+    </div>
+    <button id="backward">↓</button>
+</div>
+
+<!-- interface -->
+ <div class="mybox" id="mybox">
+    <h2 class="title">Welcome to Dmaze</h2>
+
+    <h2>
+       D-MAZE
+    </h2>
+        <button id="start">START</button>
+ </div>
+ <div class="mybox" id="gameOver" style="display: none;">
+        <p id="gameOverMessage"></p>
+        <button id="restart" width="100px">RESTART</button>
+ </div>
+
+<script type="module" src="/main.js"></script>
+</body>
+</html>
