@@ -11,7 +11,7 @@ const scene = new THREE.Scene();
 
 // Add camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1500);
-camera.position.set(-90, 5.2, 5); // Adjust height to simulate eye level
+camera.position.set(-90, 5.2, 5); 
 camera.rotateY(180);
 scene.add(camera);
 
@@ -32,6 +32,31 @@ loader.load(
         console.error('An error occurred while loading the model', error);
     }
 );
+
+// Load background music and sound effects
+const listener = new THREE.AudioListener();
+camera.add(listener);
+
+const backgroundMusic = new THREE.Audio(listener);
+const winSound = new THREE.Audio(listener);
+const loseSound = new THREE.Audio(listener);
+
+const audioLoader = new THREE.AudioLoader();
+audioLoader.load('/D-soundz/background_sBtVFsuS.mp3', function(buffer) {
+    backgroundMusic.setBuffer(buffer);
+    backgroundMusic.setLoop(true);
+    backgroundMusic.setVolume(0.2);
+});
+
+audioLoader.load('/D-soundz/win.wav', function(buffer) {
+    winSound.setBuffer(buffer);
+    winSound.setVolume(1);
+});
+
+audioLoader.load('/D-soundz/lose.wav', function(buffer) {
+    loseSound.setBuffer(buffer);
+    loseSound.setVolume(1);
+});
 
 // Sizes
 const sizes = {
@@ -95,14 +120,12 @@ const skyMat = new THREE.ShaderMaterial({
 const sky = new THREE.Mesh(skyGeo, skyMat);
 scene.add(sky);
 
-
 // Renderer
 const canvas = document.querySelector('.webgl');
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.render(scene, camera);
-
 
 // Movement and look variables
 const moveSpeed = 0.5;
@@ -229,7 +252,6 @@ window.addEventListener('resize', () => {
   renderer.setSize(sizes.width, sizes.height);
 });
 
-
 // Animation loop
 let animationFrameId;
 const animate = () => {
@@ -243,9 +265,8 @@ const animate = () => {
   if (moveLeft) canMoveLeft = !checkCollision(new THREE.Vector3(-1, 0, 0));
   if (moveRight) canMoveRight = !checkCollision(new THREE.Vector3(1, 0, 0));
 
-  
   if (!canMoveForward || !canMoveBackward || !canMoveLeft || !canMoveRight) {
-    gameOver('You hit a wall! Game over. '+ 'Play time: '+timer + ' seconds');
+    gameOver('You hit a wall! Game over. ' + 'Play time: ' + (120 - timer) + ' seconds');
     return;
   }
 
@@ -274,7 +295,7 @@ const updateTimer = () => {
   timer--;
   document.getElementById('time').innerText = `${timer} sec`;
   if (timer <= 0) {
-    gameOver('Time is up! Game over. ' + 'Play time: '+timer + ' seconds');
+    gameOver('Time is up! Game over. ' + 'Play time: ' + (120 - timer) + ' seconds');
   }
 };
 
@@ -283,16 +304,7 @@ const gameOver = (message) => {
   clearInterval(timerInterval);
   document.getElementById('gameOverMessage').innerText = message;
   document.getElementById('gameOver').style.display = 'block';
-};
-
-// Function to handle winning the game
-const winGame = () => {
-  cancelAnimationFrame(animationFrameId);
-  document.getElementById('winnerMessage').style.display = 'block';
-  document.getElementById('win').style.display = 'block';
-  document.getElementById('time1').innerText= 'Play time: '+timer + ' seconds';
-  clearInterval(timerInterval);
-
+  loseSound.play();  // Play lose sound effect
 };
 
 // Raycaster for detecting clicks
@@ -304,13 +316,13 @@ canvas.addEventListener('mousedown', (event) => {
   // Convert mouse position to normalized device coordinates
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-
+  
   // Set the raycaster from the camera and mouse position
   clickRaycaster.setFromCamera(mouse, camera);
-
+  
   // Calculate objects intersecting the picking ray
   const intersects = clickRaycaster.intersectObjects(scene.children, true);
-
+  
   if (intersects.length > 0 && intersects[0].object === cup) {
     winGame();
   }
@@ -325,32 +337,50 @@ const startGame = () => {
   updateTimer();
   clearInterval(timerInterval);
   timerInterval = setInterval(updateTimer, 1000);
-  
+  camera.position.set(-90, 5.2, 5); 
+  backgroundMusic.play();
   animate();
 };
 
-
 // Restart the game
 const restartGame = () => {
-  document.getElementById('mybox').style.display = 'flex';
+  document.getElementById('mybox').style.display = 'block';
   document.getElementById('gameOver').style.display = 'none';
   document.getElementById('winnerMessage').style.display = 'none';
-  location.reload();
   startGame();
+};
+
+//game reload
+const reloadGame = () =>{
+  location.reload();
+}
+
+// Function to handle winning the game
+const winGame = () => {
+  cancelAnimationFrame(animationFrameId);
+  document.getElementById('winnerMessage').style.display = 'block';
+  document.getElementById('win').style.display = 'block';
+  document.getElementById('time1').innerText= 'Play time: ' + (120 - timer) + ' seconds';
+  clearInterval(timerInterval);
+  winSound.play();  // Play win sound effect
 };
 
 // Event listeners for start and restart buttons
 document.getElementById('start').addEventListener('click', startGame);
 document.getElementById('restart').addEventListener('click', restartGame);
+document.getElementById('reload').addEventListener('click', reloadGame);
 
 // gsap animation stuff
 const tl = gsap.timeline({ defaults: { duration: 1 } });
 const t2 = gsap.timeline({ defaults: { duration: 2 } });
 const t3 = gsap.timeline({ defaults: { duration: 5 } });
-const t4 = gsap.timeline({ defaults: { duration: 10 } });
-// Assuming you have a mesh to animate
-// t2.fromTo(camera.position, { z: 0, x: 0, y: 0 }, { z: 1, x: 1, y: 1 });
+const t4 = gsap.timeline({ defaults: { duration: 20 } });
+
 t4.fromTo(".title", { opacity: 1 }, { opacity: 0 });
 t2.fromTo("#controls", { opacity: 0.02 }, { opacity: 1 });
 tl.fromTo("nav", { y: "-100%" }, { y: "0%" });
-t1.fromTo(".infoBox", { opacity: 0.1 }, { opacity: 1 });
+t2.fromTo("div.infoBox", { opacity: 0.1 }, { opacity: 1 });
+t3.fromTo("div.infoBox", { y: "-100%" }, { y: "0%" });
+t2.fromTo("canvas.webgl", { y: "100%" }, { y: "0%" });
+
+//glory be to God!!

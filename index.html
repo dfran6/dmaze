@@ -25,13 +25,30 @@
     <h2>Your Mission</h2>
     <br>
     <ul>
-        <li>Get to the end of the D-maze.</li>
+        <li>Get to the end of the D-maze,<br>collect the golden Trophy</li>
         <br>
         <br>
         <p><b>Tips:</b></p><br>
         <li>Explore my maze and find the exit.</li><br>
         <li>Avoid touching the walls.</li><br>
         <li>Tic-tok you have 2 mins to complete them D-maze.</li>
+        <br>
+        Goodluck !!
+    </ul>
+    
+</div>
+
+<div class="infoBox2">
+    <h2>Navigation & Help</h2>
+    <br>
+    <ul>
+        <li>Click and drag mouse to control view</li>
+        <br>
+        <li>Use directional keys or <b>W-A-S-D </b>keys to control movement</li>
+        <br>
+
+        <b>HINT</b>
+        <li>Some walls are your friend</li>
     </ul>
     
 </div>
@@ -52,16 +69,20 @@
     <h2>D-MAZE</h2>
     <button id="start">START</button>
  </div>
+
  <div class="mybox" id="gameOver" style="display: none;">
+    <h1 style="font-size: 3em;">GAME OVER</h1>
         <p id="gameOverMessage"></p>
         <button id="restart" width="100px">RESTART</button>
  </div>
+
  <div class="mybox" id="win" style="display: none;">
-    <p id="winnerMessage">YOU WIN!!</p>
+    <h1 id="winnerMessage" style="font-size: 3em;">YOU WIN!!</h1>
     <span id="time1"></span><br>
     <button id="restart" width="100px">RESTART</button>
+    <button id="reload" width="100px">RELOAD</button>
 </div>
-<footer>
+<footer style="text-align: center;">
     <p>Developed by Awulor Chukwudi Francis </p>
 </footer>
 <script type="module" src="/main.js"></script>

@@ -5,8 +5,10 @@
   box-sizing: border-box;
 }
 
+
 body,html{
   overflow-x: hidden;
+  overflow-y: hidden;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -30,6 +32,7 @@ nav a{
   text-decoration: none;
   color: white;
   font-weight: bold;
+  font-size: 1.5em;
 }
 
 nav ul{
@@ -86,7 +89,7 @@ button:active{
 }
 
 
-.infoBox{
+div.infoBox{
   padding: 7px;
   background-color: rgba(0, 0, 0, 0.5);
   width: 250px;
@@ -94,8 +97,28 @@ button:active{
   z-index: 2;
   color: white;
 }
+.infoBox ul{
+  padding-left: 15px;
+}
 
 
+
+div.infoBox2{
+  margin-right: 5px;
+  padding: 7px;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 250px;
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  color: white;
+  border-radius: 4px;
+}
+
+
+.infoBox2 ul{
+  padding-left: 15px;
+}
 
 
 /* <button class="button-85" role="button">Button 85</button> */
@@ -199,5 +222,6 @@ footer{
   z-index: 2;
   position: absolute;
   bottom: 0;
-  right: 37%;
+  left: 50%;
+  transform: translate(-50%);
 }
