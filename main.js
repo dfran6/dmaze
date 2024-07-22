@@ -170,6 +170,36 @@ canvas.addEventListener('mousemove', (event) => {
   }
 });
 
+// Touch controls
+canvas.addEventListener('touchstart', (event) => {
+  if (event.touches.length === 1) {
+    isDragging = true;
+    previousMousePosition = {
+      x: event.touches[0].clientX,
+      y: event.touches[0].clientY
+    };
+  }
+});
+
+canvas.addEventListener('touchmove', (event) => {
+  if (isDragging) {
+    const deltaMove = {
+      x: event.touches[0].clientX - previousMousePosition.x,
+    };
+
+    camera.rotation.y -= deltaMove.x * lookSpeed;
+
+    previousMousePosition = {
+      x: event.touches[0].clientX,
+      y: event.touches[0].clientY
+    };
+  }
+});
+
+canvas.addEventListener('touchend', () => {
+  isDragging = false;
+});
+
 // Prevent zooming and scaling
 document.addEventListener('wheel', (event) => {
   event.preventDefault();
@@ -189,6 +219,16 @@ leftButton.addEventListener('mousedown', () => { moveLeft = true; });
 leftButton.addEventListener('mouseup', () => { moveLeft = false; });
 rightButton.addEventListener('mousedown', () => { moveRight = true; });
 rightButton.addEventListener('mouseup', () => { moveRight = false; });
+
+// Touch controls for movement
+forwardButton.addEventListener('touchstart', () => { moveForward = true; });
+forwardButton.addEventListener('touchend', () => { moveForward = false; });
+backwardButton.addEventListener('touchstart', () => { moveBackward = true; });
+backwardButton.addEventListener('touchend', () => { moveBackward = false; });
+leftButton.addEventListener('touchstart', () => { moveLeft = true; });
+leftButton.addEventListener('touchend', () => { moveLeft = false; });
+rightButton.addEventListener('touchstart', () => { moveRight = true; });
+rightButton.addEventListener('touchend', () => { moveRight = false; });
 
 // Keyboard controls
 document.addEventListener('keydown', (event) => {
@@ -245,6 +285,15 @@ const checkCollision = (direction) => {
 
 // Resize handling
 window.addEventListener('resize', () => {
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+  renderer.setSize(sizes.width, sizes.height);
+});
+
+// Handle orientation change
+window.addEventListener('orientationchange', () => {
   sizes.width = window.innerWidth;
   sizes.height = window.innerHeight;
   camera.aspect = sizes.width / sizes.height;
