@@ -27,6 +27,7 @@ loader.load(
     },
     function (xhr) {
         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+        document.getElementById('loading').style.display='none'
     },
     function (error) {
         console.error('An error occurred while loading the model', error);
@@ -418,6 +419,25 @@ const winGame = () => {
 document.getElementById('start').addEventListener('click', startGame);
 document.getElementById('restart').addEventListener('click', restartGame);
 document.getElementById('reload').addEventListener('click', reloadGame);
+
+document.getElementById('openInfobox').addEventListener('click', () => {
+  document.querySelector('.infoBox').style.display = 'block';
+  document.querySelector('.infoBox2').style.display = 'none';
+});
+
+document.getElementById('closeInfobox').addEventListener('click', () => {
+  document.querySelector('.infoBox').style.display = 'none';
+});
+
+document.getElementById('openInfobox2').addEventListener('click', () => {
+  document.querySelector('.infoBox2').style.display = 'block';
+  document.querySelector('.infoBox').style.display = 'none';
+
+});
+
+document.getElementById('closeInfobox2').addEventListener('click', () => {
+  document.querySelector('.infoBox2').style.display = 'none';
+});
 
 // gsap animation stuff
 const tl = gsap.timeline({ defaults: { duration: 1 } });

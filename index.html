@@ -9,11 +9,18 @@
 </head>
 <body>
 
+    <div id="loading">
+        <h1 class="title1"><marquee behavior="" direction="right">Loading..</marquee> </h1>
+        <p>Please refresh or check your internet connection</p>
+        <h1 style="font-size: 3em;">Dmaze v1.5</h1>
+    </div>
+
 <canvas class="webgl"></canvas>
 <nav>
     <a href="/">D-maze</a>
     <ul>
-        <li>Explore</li>
+        <li><button  id="openInfobox">Mission</button></li>
+        <li><button id="openInfobox2">Help</button></li>
         <li id="time"><b>2:00</b></li>
     </ul>
 </nav>
@@ -34,6 +41,8 @@
         <li>Tic-tok you have 2 mins to complete them D-maze.</li>
         <br>
         Goodluck !!
+        <br>
+        <button class="close" id="closeInfobox">X</button>
     </ul>
     
 </div>
@@ -49,6 +58,7 @@
 
         <b>HINT</b>
         <li>Some walls are your friend</li>
+        <button class="close" id="closeInfobox2">X</button>
     </ul>
     
 </div>
