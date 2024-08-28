@@ -15,19 +15,28 @@ camera.position.set(-90, 5.2, 5);
 camera.rotateY(180);
 scene.add(camera);
 
-// Load the GLB model
+// Load the GLtf model
+
+const LM = new THREE.LoadingManager();
+LM.onStart = function (url, itemsLoaded, itemsTotal) {
+  document.getElementById('loadingP').style.display = 'block';
+};
+LM.onLoad = function () {
+  document.getElementById('loadingP').style.display = 'none';
+};
+
+
 let cup;
-const loader = new GLTFLoader();
+const loader = new GLTFLoader(LM);
 loader.load(
     '/glt/Dmaze.gltf',
     function (gltf) {
         const model = gltf.scene;
         scene.add(model);
-        cup = model.getObjectByName('cup'); // Store reference to 'cup' object
+        cup = model.getObjectByName('cup');
     },
     function (xhr) {
         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-        document.getElementById('loading').style.display='none'
     },
     function (error) {
         console.error('An error occurred while loading the model', error);

@@ -292,3 +292,25 @@ div.infoBox{
     font-size: 2em;
   }
 }
+
+
+#loadingP{
+  position: absolute;
+  top:0px;
+  z-index: 4;
+  color: blue;
+  width: 100%;
+  height: 100vh;
+ background-color: black;
+
+}
+p#loading{
+  font-size: 2em;
+  position: relative;
+  top: 50%;
+  left:50%;
+  width: 200px;
+  /* margin: auto; */
+  border-bottom:1px solid ;
+  border-top:1px solid ;
+}
