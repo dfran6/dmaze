@@ -93,7 +93,8 @@ function switchToDay() {
 
 function switchToNight() {
     dayAmbientLight.intensity = 0;
-    nightAmbientLight.intensity = 0.2;
+    nightAmbientLight.intensity = 0.5;
+    directionalLight.intensity =0.0;
     
  //Night Sky Shader
 const skyGeo = new THREE.SphereGeometry(500, 32, 32);
