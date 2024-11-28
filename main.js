@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import * as THREE from "three"
 import "./style.css";
 import gsap from "gsap";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
